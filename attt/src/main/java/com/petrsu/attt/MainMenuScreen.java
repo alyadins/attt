@@ -1,39 +1,36 @@
 package com.petrsu.attt;
 
-
 import com.badlogic.androidgames.framework.Game;
 import com.badlogic.androidgames.framework.Graphics;
+import com.badlogic.androidgames.framework.Input.TouchEvent;
 import com.badlogic.androidgames.framework.Screen;
+
+import java.util.List;
 
 /**
  * Created by lexer on 7/21/13.
  */
-public class LoadingScreen extends Screen {
+public class MainMenuScreen extends Screen {
 
-    public LoadingScreen(Game game) {
+    public MainMenuScreen(Game game) {
         super(game);
     }
 
     @Override
     public void update(float deltaTime) {
-        //Load all Assets
         Graphics g = game.getGraphics();
+        List<TouchEvent> touchEvents = game.getInput().getTouchEvents();
+        game.getInput().getKeyEvents();
 
-        //Pixmaps
-        Assets.background = g.newPixmap("background.png", Graphics.PixmapFormat.ARGB8888);
-
-        //Sounds
-        Assets.click = game.getAudio().newSound("click.ogg");
-
-        //Settings
-        Settings.load(game.getFileIO());
-
-        //Start
-        game.setScreen(new MainMenuScreen(game));
+        int len = touchEvents.size();
+        
     }
 
     @Override
     public void present(float deltaTime) {
+        Graphics g = game.getGraphics();
+
+        g.drawPixmap(Assets.background, 0 ,0);
 
     }
 
