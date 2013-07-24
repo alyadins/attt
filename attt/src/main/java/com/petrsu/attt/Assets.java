@@ -1,5 +1,7 @@
 package com.petrsu.attt;
 
+import android.graphics.Typeface;
+
 import com.badlogic.androidgames.framework.Pixmap;
 import com.badlogic.androidgames.framework.Sound;
 
@@ -12,4 +14,7 @@ public class Assets {
 
     //Sounds
     public static Sound click;
+
+    //Fonts
+    public static Typeface font;
 }

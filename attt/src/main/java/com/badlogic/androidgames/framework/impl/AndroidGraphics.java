@@ -1,8 +1,5 @@
 package com.badlogic.androidgames.framework.impl;
 
-import java.io.IOException;
-import java.io.InputStream;
-
 import android.content.res.AssetManager;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
@@ -12,9 +9,13 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Paint.Style;
 import android.graphics.Rect;
+import android.graphics.Typeface;
 
 import com.badlogic.androidgames.framework.Graphics;
 import com.badlogic.androidgames.framework.Pixmap;
+
+import java.io.IOException;
+import java.io.InputStream;
 
 public class AndroidGraphics implements Graphics {
     AssetManager assets;
@@ -96,7 +97,7 @@ public class AndroidGraphics implements Graphics {
     public void drawRect(int x, int y, int width, int height, int color) {
         paint.setColor(color);
         paint.setStyle(Style.FILL);
-        canvas.drawRect(x, y, x + width - 1, y + width - 1, paint);
+        canvas.drawRect(x, y, x + width - 1, y + height - 1, paint);
     }
 
     @Override
@@ -119,6 +120,16 @@ public class AndroidGraphics implements Graphics {
     @Override
     public void drawPixmap(Pixmap pixmap, int x, int y) {
         canvas.drawBitmap(((AndroidPixmap)pixmap).bitmap, x, y, null);
+    }
+
+    @Override
+    public void drawText(String text, int x, int y, Typeface font,  float size, int color) {
+        paint.setFlags(Paint.DEV_KERN_TEXT_FLAG
+                | Paint.ANTI_ALIAS_FLAG);
+        paint.setColor(color);
+        paint.setTextSize(size);
+        paint.setTypeface(font);
+        canvas.drawText(text, x, y, paint);
     }
 
     @Override

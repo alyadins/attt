@@ -13,6 +13,7 @@ import android.view.WindowManager;
 
 import com.badlogic.androidgames.framework.Audio;
 import com.badlogic.androidgames.framework.FileIO;
+import com.badlogic.androidgames.framework.Font;
 import com.badlogic.androidgames.framework.Game;
 import com.badlogic.androidgames.framework.Graphics;
 import com.badlogic.androidgames.framework.Input;
@@ -25,6 +26,7 @@ public abstract class AndroidGame extends Activity implements Game {
     Input input;
     FileIO fileIO;
     Screen screen;
+    Font font;
     WakeLock wakeLock;
 
     @Override
@@ -45,13 +47,13 @@ public abstract class AndroidGame extends Activity implements Game {
                 / getWindowManager().getDefaultDisplay().getWidth();
         float scaleY = (float) frameBufferHeight
                 / getWindowManager().getDefaultDisplay().getHeight();
-
         renderView = new AndroidFastRenderView(this, frameBuffer);
         graphics = new AndroidGraphics(getAssets(), frameBuffer);
         fileIO = new AndroidFileIO(getAssets());
         audio = new AndroidAudio(this);
         input = new AndroidInput(this, renderView, scaleX, scaleY);
         screen = getStartScreen();
+        font = new AndroidFont(getAssets());
         setContentView(renderView);
         
         PowerManager powerManager = (PowerManager) getSystemService(Context.POWER_SERVICE);
@@ -111,5 +113,10 @@ public abstract class AndroidGame extends Activity implements Game {
     
     public Screen getCurrentScreen() {
         return screen;
+    }
+
+    @Override
+    public Font getFont() {
+        return font;
     }
 }
