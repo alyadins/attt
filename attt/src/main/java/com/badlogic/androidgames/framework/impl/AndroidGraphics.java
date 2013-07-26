@@ -124,8 +124,7 @@ public class AndroidGraphics implements Graphics {
 
     @Override
     public void drawText(String text, int x, int y, Typeface font,  float size, int color) {
-        paint.setFlags(Paint.DEV_KERN_TEXT_FLAG
-                | Paint.ANTI_ALIAS_FLAG);
+        paint.setAntiAlias(true);
         paint.setColor(color);
         paint.setTextSize(size);
         paint.setTypeface(font);
