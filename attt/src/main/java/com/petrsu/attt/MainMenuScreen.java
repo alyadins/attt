@@ -61,7 +61,7 @@ public class MainMenuScreen extends Screen {
                    lock = false;
                }
             }
-            if ((event.type == TouchEvent.TOUCH_DRAGGED) || (event.type == TouchEvent.TOUCH_DOWN)) {
+            if (event.type == TouchEvent.TOUCH_DOWN) {
                 for (int j = 0; j < 3; j++) {
                     if (inBounds(event, buttonsX, buttonsY[j], buttonsWidth, buttonsHeight)) {
                         if (!lock) {
@@ -69,6 +69,13 @@ public class MainMenuScreen extends Screen {
                             lock = true;
                         }
                     } else {
+                        isClicked[j] = false;
+                    }
+                }
+            }
+            if (event.type == TouchEvent.TOUCH_DRAGGED) {
+                for (int j = 0; j < 3; j++) {
+                    if(!inBounds(event, buttonsX, buttonsY[j], buttonsWidth, buttonsHeight)) {
                         isClicked[j] = false;
                     }
                 }
