@@ -9,5 +9,6 @@ public interface Pixmap {
 
     public PixmapFormat getFormat();
 
+
     public void dispose();
 }

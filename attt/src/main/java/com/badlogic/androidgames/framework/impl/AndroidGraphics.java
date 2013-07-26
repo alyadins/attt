@@ -6,6 +6,8 @@ import android.graphics.Bitmap.Config;
 import android.graphics.BitmapFactory;
 import android.graphics.BitmapFactory.Options;
 import android.graphics.Canvas;
+import android.graphics.ColorFilter;
+import android.graphics.LightingColorFilter;
 import android.graphics.Paint;
 import android.graphics.Paint.Style;
 import android.graphics.Rect;
@@ -120,6 +122,30 @@ public class AndroidGraphics implements Graphics {
     @Override
     public void drawPixmap(Pixmap pixmap, int x, int y) {
         canvas.drawBitmap(((AndroidPixmap)pixmap).bitmap, x, y, null);
+    }
+    public void drawColoredPixmap(Pixmap pixmap, int x, int y, int oldColor, int newColor) {
+        ColorFilter filter = new LightingColorFilter(oldColor, newColor);
+        paint.setColorFilter(filter);
+        canvas.drawBitmap(((AndroidPixmap)pixmap).bitmap, x, y, paint);
+    }
+
+    @Override
+    public void drawColoredPixmap(Pixmap pixmap, int x, int y, int srcX, int srcY, int srcWidth, int srcHeight, int oldColor, int newColor) {
+        srcRect.left = srcX;
+        srcRect.top = srcY;
+        srcRect.right = srcX + srcWidth - 1;
+        srcRect.bottom = srcY + srcHeight - 1;
+
+        dstRect.left = x;
+        dstRect.top = y;
+        dstRect.right = x + srcWidth - 1;
+        dstRect.bottom = y + srcHeight - 1;
+
+        ColorFilter filter = new LightingColorFilter(oldColor, newColor);
+        paint.setColorFilter(filter);
+
+        canvas.drawBitmap(((AndroidPixmap) pixmap).bitmap, srcRect, dstRect,
+                paint);
     }
 
     @Override

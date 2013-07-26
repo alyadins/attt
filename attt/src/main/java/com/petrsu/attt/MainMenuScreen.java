@@ -1,5 +1,8 @@
 package com.petrsu.attt;
 
+import android.graphics.Color;
+import android.util.Log;
+
 import com.badlogic.androidgames.framework.Game;
 import com.badlogic.androidgames.framework.Graphics;
 import com.badlogic.androidgames.framework.Input.TouchEvent;
@@ -11,20 +14,20 @@ import java.util.List;
  * Created by lexer on 7/21/13.
  */
 public class MainMenuScreen extends Screen {
-    private static int SOUND_X = 0;
-    private static int SOUND_Y = 1134;
-    private static int SOUND_WIDTH = 128;
-    private static int SOUND_HEIGHT = 145;
-    private static int LOGO_X = 62;
-    private static int LOGO_Y = 55;
-    private static int LOGO_WIDTH = 603;
-    private static int LOGO_HEIGHT = 366;
-    private static int BUTTONS_X = 121;
-    private static int BUTTON1_Y = 536;
-    private static int BUTTON2_Y = 715;
-    private static int BUTTON3_Y = 895;
-    private static int BUTTONS_WIDTH = 485;
-    private static int BUTTONS_HEIGHT = 125;
+    private int soundX = 0;
+    private int soundY = 1134;
+    private int soundWidth = 128;
+    private int soundHeight = 145;
+    private int logoX = 62;
+    private int logoY = 55;
+    private int logoWidth = 603;
+    private int logoHeight = 366;
+    private int buttonsX = 121;
+    private int buttonsY[] = {536, 715, 895};
+    private int buttonsWidth = 485;
+    private int buttonsHeight = 125;
+    private boolean isClicked[] = {false, false, false};
+    private int color = Color.parseColor("#2e8b57");
     public MainMenuScreen(Game game) {
         super(game);
     }
@@ -36,31 +39,34 @@ public class MainMenuScreen extends Screen {
         game.getInput().getKeyEvents();
 
         int len = touchEvents.size();
-
         for (int i = 0; i < len; i++) {
             TouchEvent event = touchEvents.get(i);
             if (event.type == TouchEvent.TOUCH_UP) {
-               if (inBounds(event, SOUND_X, SOUND_Y, SOUND_WIDTH, SOUND_HEIGHT)) {
+               if (inBounds(event, soundX, soundY, soundWidth, soundHeight)) {
                    Settings.soundEnabled = !Settings.soundEnabled;
                    if(Settings.soundEnabled) {
                        Assets.click.play(0.5f);
                    }
                }
-               if (inBounds(event, BUTTONS_X, BUTTON1_Y, BUTTONS_WIDTH, BUTTONS_HEIGHT)) {
-                   if (Settings.soundEnabled) {
-                       Assets.click.play(0.5f);
+
+               for (int j = 0; j < 3; j++) {
+                   if (inBounds(event, buttonsX, buttonsY[j], buttonsWidth, buttonsHeight)) {
+                       if (Settings.soundEnabled) {
+                           Assets.click.play(0.5f);
+                       }
+                       Log.d("TEST", String.valueOf(j));
                    }
+                   isClicked[j] = false;
                }
-               if (inBounds(event, BUTTONS_X, BUTTON2_Y, BUTTONS_WIDTH, BUTTONS_HEIGHT)) {
-                   if (Settings.soundEnabled) {
-                       Assets.click.play(0.5f);
-                   }
-               }
-               if (inBounds(event, BUTTONS_X, BUTTON3_Y, BUTTONS_WIDTH, BUTTONS_HEIGHT)) {
-                   if (Settings.soundEnabled) {
-                       Assets.click.play(0.5f);
-                   }
-               }
+            }
+            if ((event.type == TouchEvent.TOUCH_DRAGGED) || (event.type == TouchEvent.TOUCH_DOWN)) {
+                for (int j = 0; j < 3; j++) {
+                    if (inBounds(event, buttonsX, buttonsY[j], buttonsWidth, buttonsHeight)) {
+                        isClicked[j] = true;
+                    } else {
+                        isClicked[j] = false;
+                    }
+                }
             }
         }
     }
@@ -76,17 +82,28 @@ public class MainMenuScreen extends Screen {
     @Override
     public void present(float deltaTime) {
         Graphics g = game.getGraphics();
+
         g.drawPixmap(Assets.background, 0, 0);
+
+        //draw sound icon
         if (Settings.soundEnabled) {
-            g.drawPixmap(Assets.soundButtons, SOUND_X, SOUND_Y, 0, 0, SOUND_WIDTH, SOUND_HEIGHT);
+            g.drawPixmap(Assets.soundButtons, soundX, soundY, 0, 0, soundWidth, soundHeight);
         } else {
-            g.drawPixmap(Assets.soundButtons, SOUND_X, SOUND_Y, SOUND_WIDTH, 0, SOUND_WIDTH, SOUND_HEIGHT);
+            g.drawPixmap(Assets.soundButtons, soundX, soundY, soundWidth, 0, soundWidth, soundHeight);
         }
 
-        g.drawPixmap(Assets.logo, LOGO_X, LOGO_Y);
-        g.drawPixmap(Assets.menuButtons, BUTTONS_X, BUTTON1_Y, 0, 0, BUTTONS_WIDTH, BUTTONS_HEIGHT);
-        g.drawPixmap(Assets.menuButtons, BUTTONS_X, BUTTON2_Y, 0, BUTTONS_HEIGHT, BUTTONS_WIDTH, BUTTONS_HEIGHT);
-        g.drawPixmap(Assets.menuButtons, BUTTONS_X, BUTTON3_Y, 0, BUTTONS_HEIGHT * 2, BUTTONS_WIDTH, BUTTONS_HEIGHT);
+        g.drawPixmap(Assets.logo, logoX, logoY);
+
+        //draw menu items
+        for (int i = 0; i < 3; i++) {
+            if (isClicked[i]) {
+                g.drawColoredPixmap(Assets.menuButtons, buttonsX, buttonsY[i], 0, buttonsHeight * i,
+                        buttonsWidth, buttonsHeight, Color.BLACK, color);
+            } else {
+                g.drawPixmap(Assets.menuButtons, buttonsX, buttonsY[i], 0, buttonsHeight * i,
+                        buttonsWidth, buttonsHeight);
+            }
+        }
     }
 
     @Override
