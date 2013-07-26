@@ -11,6 +11,9 @@ import com.badlogic.androidgames.framework.Sound;
 public class Assets {
     //Pixmaps
     public static Pixmap background;
+    public static Pixmap logo;
+    public static Pixmap menuButtons;
+    public static Pixmap soundButtons;
 
     //Sounds
     public static Sound click;

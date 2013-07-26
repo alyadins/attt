@@ -1,7 +1,5 @@
 package com.petrsu.attt;
 
-import android.graphics.Color;
-
 import com.badlogic.androidgames.framework.Game;
 import com.badlogic.androidgames.framework.Graphics;
 import com.badlogic.androidgames.framework.Input.TouchEvent;
@@ -14,7 +12,7 @@ import java.util.List;
  */
 public class MainMenuScreen extends Screen {
     private static int SOUND_X = 0;
-    private static int SOUND_Y = 1135;
+    private static int SOUND_Y = 1134;
     private static int SOUND_WIDTH = 128;
     private static int SOUND_HEIGHT = 145;
     private static int LOGO_X = 62;
@@ -80,15 +78,15 @@ public class MainMenuScreen extends Screen {
         Graphics g = game.getGraphics();
         g.drawPixmap(Assets.background, 0, 0);
         if (Settings.soundEnabled) {
-            g.drawRect(SOUND_X, SOUND_Y, SOUND_WIDTH, SOUND_HEIGHT, Color.GREEN);
+            g.drawPixmap(Assets.soundButtons, SOUND_X, SOUND_Y, 0, 0, 128, 145);
         } else {
-            g.drawRect(SOUND_X, SOUND_Y, SOUND_WIDTH, SOUND_HEIGHT, Color.RED);
+            g.drawPixmap(Assets.soundButtons, SOUND_X, SOUND_Y, 128, 0, 128, 145);
         }
 
-        g.drawRect(LOGO_X, LOGO_Y, LOGO_WIDTH, LOGO_HEIGHT, Color.GREEN);
-        g.drawRect(BUTTONS_X, BUTTON1_Y, BUTTONS_WIDTH, BUTTONS_HEIGHT, Color.RED);
-        g.drawRect(BUTTONS_X, BUTTON2_Y, BUTTONS_WIDTH, BUTTONS_HEIGHT, Color.RED);
-        g.drawRect(BUTTONS_X, BUTTON3_Y, BUTTONS_WIDTH, BUTTONS_HEIGHT, Color.RED);
+        g.drawPixmap(Assets.logo, LOGO_X, LOGO_Y);
+        g.drawPixmap(Assets.menuButtons, BUTTONS_X, BUTTON1_Y, 0, 0, 485, 125);
+        g.drawPixmap(Assets.menuButtons, BUTTONS_X, BUTTON2_Y, 0, 125, 485, 125);
+        g.drawPixmap(Assets.menuButtons, BUTTONS_X, BUTTON3_Y, 0, 250, 485, 125);
     }
 
     @Override

@@ -20,6 +20,9 @@ public class LoadingScreen extends Screen {
 
         //Pixmaps
         Assets.background = g.newPixmap("background.png", Graphics.PixmapFormat.ARGB8888);
+        Assets.logo = g.newPixmap("logo.png", Graphics.PixmapFormat.ARGB8888);
+        Assets.menuButtons = g.newPixmap("menu_buttons.png", Graphics.PixmapFormat.ARGB8888);
+        Assets.soundButtons = g.newPixmap("sound_buttons.png", Graphics.PixmapFormat.ARGB8888);
 
         //Sounds
         Assets.click = game.getAudio().newSound("click.ogg");
