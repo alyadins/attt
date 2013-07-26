@@ -28,6 +28,7 @@ public class MainMenuScreen extends Screen {
     private int buttonsHeight = 125;
     private boolean isClicked[] = {false, false, false};
     private int color = Color.parseColor("#2e8b57");
+    private boolean lock = false;
     public MainMenuScreen(Game game) {
         super(game);
     }
@@ -50,19 +51,23 @@ public class MainMenuScreen extends Screen {
                }
 
                for (int j = 0; j < 3; j++) {
-                   if (inBounds(event, buttonsX, buttonsY[j], buttonsWidth, buttonsHeight)) {
+                   if (inBounds(event, buttonsX, buttonsY[j], buttonsWidth, buttonsHeight) && isClicked[j]) {
                        if (Settings.soundEnabled) {
                            Assets.click.play(0.5f);
                        }
                        Log.d("TEST", String.valueOf(j));
                    }
                    isClicked[j] = false;
+                   lock = false;
                }
             }
             if ((event.type == TouchEvent.TOUCH_DRAGGED) || (event.type == TouchEvent.TOUCH_DOWN)) {
                 for (int j = 0; j < 3; j++) {
                     if (inBounds(event, buttonsX, buttonsY[j], buttonsWidth, buttonsHeight)) {
-                        isClicked[j] = true;
+                        if (!lock) {
+                            isClicked[j] = true;
+                            lock = true;
+                        }
                     } else {
                         isClicked[j] = false;
                     }
