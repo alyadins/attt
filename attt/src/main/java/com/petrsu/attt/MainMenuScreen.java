@@ -78,15 +78,15 @@ public class MainMenuScreen extends Screen {
         Graphics g = game.getGraphics();
         g.drawPixmap(Assets.background, 0, 0);
         if (Settings.soundEnabled) {
-            g.drawPixmap(Assets.soundButtons, SOUND_X, SOUND_Y, 0, 0, 128, 145);
+            g.drawPixmap(Assets.soundButtons, SOUND_X, SOUND_Y, 0, 0, SOUND_WIDTH, SOUND_HEIGHT);
         } else {
-            g.drawPixmap(Assets.soundButtons, SOUND_X, SOUND_Y, 128, 0, 128, 145);
+            g.drawPixmap(Assets.soundButtons, SOUND_X, SOUND_Y, SOUND_WIDTH, 0, SOUND_WIDTH, SOUND_HEIGHT);
         }
 
         g.drawPixmap(Assets.logo, LOGO_X, LOGO_Y);
-        g.drawPixmap(Assets.menuButtons, BUTTONS_X, BUTTON1_Y, 0, 0, 485, 125);
-        g.drawPixmap(Assets.menuButtons, BUTTONS_X, BUTTON2_Y, 0, 125, 485, 125);
-        g.drawPixmap(Assets.menuButtons, BUTTONS_X, BUTTON3_Y, 0, 250, 485, 125);
+        g.drawPixmap(Assets.menuButtons, BUTTONS_X, BUTTON1_Y, 0, 0, BUTTONS_WIDTH, BUTTONS_HEIGHT);
+        g.drawPixmap(Assets.menuButtons, BUTTONS_X, BUTTON2_Y, 0, BUTTONS_HEIGHT, BUTTONS_WIDTH, BUTTONS_HEIGHT);
+        g.drawPixmap(Assets.menuButtons, BUTTONS_X, BUTTON3_Y, 0, BUTTONS_HEIGHT * 2, BUTTONS_WIDTH, BUTTONS_HEIGHT);
     }
 
     @Override
