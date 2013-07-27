@@ -15,19 +15,21 @@ import java.util.List;
  */
 public class MainMenuScreen extends Screen {
     private int soundX = 0;
-    private int soundY = 1134;
-    private int soundWidth = 128;
-    private int soundHeight = 145;
-    private int logoX = 62;
-    private int logoY = 55;
-    private int logoWidth = 603;
-    private int logoHeight = 366;
-    private int buttonsX = 121;
-    private int buttonsY[] = {536, 715, 895};
-    private int buttonsWidth = 485;
-    private int buttonsHeight = 125;
+    private int soundY = 1105;
+    private int settingsX = 585;
+    private int settingsY = 1105;
+    private int soundSettingsWidth = 136;
+    private int soundSettingHeight = 136;
+    private int logoX = 65;
+    private int logoY = 65;
+    private int logoWidth = 591;
+    private int logoHeight = 268;
+    private int buttonsX = 130;
+    private int buttonsY[] = {390, 585, 780};
+    private int buttonsWidth = 461;
+    private int buttonsHeight = 136;
     private boolean isClicked[] = {false, false, false};
-    private int color = Color.parseColor("#2e8b57");
+    private int color = Color.parseColor("#808080");
     private boolean lock = false;
     public MainMenuScreen(Game game) {
         super(game);
@@ -39,17 +41,26 @@ public class MainMenuScreen extends Screen {
         List<TouchEvent> touchEvents = game.getInput().getTouchEvents();
         game.getInput().getKeyEvents();
 
+        //Process touch events
         int len = touchEvents.size();
         for (int i = 0; i < len; i++) {
             TouchEvent event = touchEvents.get(i);
             if (event.type == TouchEvent.TOUCH_UP) {
-               if (inBounds(event, soundX, soundY, soundWidth, soundHeight)) {
+                //sound
+                if (inBounds(event, soundX, soundY, soundSettingsWidth, soundSettingHeight)) {
                    Settings.soundEnabled = !Settings.soundEnabled;
                    if(Settings.soundEnabled) {
                        Assets.click.play(0.5f);
                    }
                }
+               //settigns
+               if (inBounds(event, settingsX, settingsY, soundSettingsWidth, soundSettingHeight)) {
+                   if (Settings.soundEnabled) {
+                       Assets.click.play(0.5f);
+                   }
+               }
 
+               //menu buttons
                for (int j = 0; j < 3; j++) {
                    if (inBounds(event, buttonsX, buttonsY[j], buttonsWidth, buttonsHeight) && isClicked[j]) {
                        if (Settings.soundEnabled) {
@@ -62,6 +73,7 @@ public class MainMenuScreen extends Screen {
                }
             }
             if (event.type == TouchEvent.TOUCH_DOWN) {
+                //menu buttons
                 for (int j = 0; j < 3; j++) {
                     if (inBounds(event, buttonsX, buttonsY[j], buttonsWidth, buttonsHeight)) {
                         if (!lock) {
@@ -74,6 +86,7 @@ public class MainMenuScreen extends Screen {
                 }
             }
             if (event.type == TouchEvent.TOUCH_DRAGGED) {
+                //menu buttons
                 for (int j = 0; j < 3; j++) {
                     if(!inBounds(event, buttonsX, buttonsY[j], buttonsWidth, buttonsHeight)) {
                         isClicked[j] = false;
@@ -99,11 +112,15 @@ public class MainMenuScreen extends Screen {
 
         //draw sound icon
         if (Settings.soundEnabled) {
-            g.drawPixmap(Assets.soundButtons, soundX, soundY, 0, 0, soundWidth, soundHeight);
+            g.drawPixmap(Assets.soundSettingsButtons, soundX, soundY, 0, 0, soundSettingsWidth, soundSettingHeight);
         } else {
-            g.drawPixmap(Assets.soundButtons, soundX, soundY, soundWidth, 0, soundWidth, soundHeight);
+            g.drawPixmap(Assets.soundSettingsButtons, soundX, soundY, soundSettingsWidth, 0, soundSettingsWidth, soundSettingHeight);
         }
 
+        //draw settings icon
+        g.drawPixmap(Assets.soundSettingsButtons, settingsX, settingsY, 0, soundSettingHeight, soundSettingsWidth, soundSettingHeight);
+
+        //draw logo
         g.drawPixmap(Assets.logo, logoX, logoY);
 
         //draw menu items
@@ -116,6 +133,7 @@ public class MainMenuScreen extends Screen {
                         buttonsWidth, buttonsHeight);
             }
         }
+
     }
 
     @Override
