@@ -6,4 +6,11 @@ package com.petrsu.attt;
 public class Cell {
     public boolean isFree = true;
     public World.Player occupiedPlayer = null;
+    private int row;
+    private int column;
+
+    public Cell(int row, int column) {
+        this.row = row;
+        this.column = column;
+    }
 }

@@ -25,18 +25,35 @@ public class World {
         //init field
         fields = new ArrayList<Field>(SIZE * SIZE);
         for (int i = 0; i < SIZE * SIZE; i++) {
-            fields.add(new Field());
+            fields.add(new Field(i / SIZE, i % SIZE));
         }
 
         //init player
         currentPlayer = Player.LEFT;
     }
 
+
     public Field getField(int i, int j) {
         return fields.get(i * SIZE + j);
     }
 
     public void nextTurn() {
+        if (checkOver()) {
+            gameOver = true;
+            return;
+        }
+        changePlayer();
+    }
 
+    private void changePlayer() {
+        if (currentPlayer == Player.LEFT) {
+            currentPlayer = Player.RIGHT;
+        } else {
+            currentPlayer = Player.LEFT;
+        }
+    }
+
+    private boolean checkOver() {
+        return false;
     }
 }
