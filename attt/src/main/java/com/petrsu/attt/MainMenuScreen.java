@@ -46,63 +46,17 @@ public class MainMenuScreen extends Screen {
         for (int i = 0; i < len; i++) {
             TouchEvent event = touchEvents.get(i);
             if (event.type == TouchEvent.TOUCH_UP) {
-                //sound
-                if (inBounds(event, soundX, soundY, soundSettingsWidth, soundSettingHeight)) {
-                   Settings.soundEnabled = !Settings.soundEnabled;
-                   if(Settings.soundEnabled) {
-                       Assets.click.play(0.5f);
-                   }
-               }
-               //settigns
-               if (inBounds(event, settingsX, settingsY, soundSettingsWidth, soundSettingHeight)) {
-                   if (Settings.soundEnabled) {
-                       Assets.click.play(0.5f);
-                   }
-               }
-
-               //menu buttons
-               for (int j = 0; j < 3; j++) {
-                   if (inBounds(event, buttonsX, buttonsY[j], buttonsWidth, buttonsHeight) && isClicked[j]) {
-                       if (Settings.soundEnabled) {
-                           Assets.click.play(0.5f);
-                       }
-                       Log.d("TEST", String.valueOf(j));
-                   }
-                   isClicked[j] = false;
-                   lock = false;
-               }
+                processTouchUpAction(event);
             }
             if (event.type == TouchEvent.TOUCH_DOWN) {
-                //menu buttons
-                for (int j = 0; j < 3; j++) {
-                    if (inBounds(event, buttonsX, buttonsY[j], buttonsWidth, buttonsHeight)) {
-                        if (!lock) {
-                            isClicked[j] = true;
-                            lock = true;
-                        }
-                    } else {
-                        isClicked[j] = false;
-                    }
-                }
+                processTouchDownAction(event);
             }
             if (event.type == TouchEvent.TOUCH_DRAGGED) {
-                //menu buttons
-                for (int j = 0; j < 3; j++) {
-                    if(!inBounds(event, buttonsX, buttonsY[j], buttonsWidth, buttonsHeight)) {
-                        isClicked[j] = false;
-                    }
-                }
+                processTouchDraggedAction(event);
             }
         }
     }
 
-    private boolean inBounds(TouchEvent event, int x, int y, int width, int height) {
-        if(event.x > x && event.x < x + width - 1 &&
-                event.y > y && event.y < y + height - 1)
-            return true;
-        else
-            return false;
-    }
 
     @Override
     public void present(float deltaTime) {
@@ -123,17 +77,7 @@ public class MainMenuScreen extends Screen {
         //draw logo
         g.drawPixmap(Assets.logo, logoX, logoY);
 
-        //draw menu items
-        for (int i = 0; i < 3; i++) {
-            if (isClicked[i]) {
-                g.drawColoredPixmap(Assets.menuButtons, buttonsX, buttonsY[i], 0, buttonsHeight * i,
-                        buttonsWidth, buttonsHeight, Color.BLACK, color);
-            } else {
-                g.drawPixmap(Assets.menuButtons, buttonsX, buttonsY[i], 0, buttonsHeight * i,
-                        buttonsWidth, buttonsHeight);
-            }
-        }
-
+        drawMenu();
     }
 
     @Override
@@ -151,4 +95,76 @@ public class MainMenuScreen extends Screen {
 
     }
 
+    private void processTouchUpAction(TouchEvent event) {
+        //sound
+        if (inBounds(event, soundX, soundY, soundSettingsWidth, soundSettingHeight)) {
+            Settings.soundEnabled = !Settings.soundEnabled;
+            if(Settings.soundEnabled) {
+                Assets.click.play(0.5f);
+            }
+        }
+        //settigns
+        if (inBounds(event, settingsX, settingsY, soundSettingsWidth, soundSettingHeight)) {
+            if (Settings.soundEnabled) {
+                Assets.click.play(0.5f);
+            }
+        }
+
+        //menu buttons
+        for (int j = 0; j < 3; j++) {
+            if (inBounds(event, buttonsX, buttonsY[j], buttonsWidth, buttonsHeight) && isClicked[j]) {
+                if (Settings.soundEnabled) {
+                    Assets.click.play(0.5f);
+                }
+                Log.d("TEST", String.valueOf(j));
+            }
+            isClicked[j] = false;
+            lock = false;
+        }
+    }
+    private void processTouchDownAction(TouchEvent event) {
+        //menu buttons
+        for (int j = 0; j < 3; j++) {
+            if (inBounds(event, buttonsX, buttonsY[j], buttonsWidth, buttonsHeight)) {
+                if (!lock) {
+                    isClicked[j] = true;
+                    lock = true;
+                }
+            } else {
+                isClicked[j] = false;
+            }
+        }
+    }
+
+    private void processTouchDraggedAction(TouchEvent event) {
+        //menu buttons
+        for (int j = 0; j < 3; j++) {
+            if(!inBounds(event, buttonsX, buttonsY[j], buttonsWidth, buttonsHeight)) {
+                isClicked[j] = false;
+            }
+        }
+    }
+
+
+    private boolean inBounds(TouchEvent event, int x, int y, int width, int height) {
+        if(event.x > x && event.x < x + width - 1 &&
+                event.y > y && event.y < y + height - 1)
+            return true;
+        else
+            return false;
+    }
+
+    private void drawMenu() {
+        Graphics g = game.getGraphics();
+        //draw menu items
+        for (int i = 0; i < 3; i++) {
+            if (isClicked[i]) {
+                g.drawColoredPixmap(Assets.menuButtons, buttonsX, buttonsY[i], 0, buttonsHeight * i,
+                        buttonsWidth, buttonsHeight, Color.BLACK, color);
+            } else {
+                g.drawPixmap(Assets.menuButtons, buttonsX, buttonsY[i], 0, buttonsHeight * i,
+                        buttonsWidth, buttonsHeight);
+            }
+        }
+    }
 }
