@@ -14,8 +14,8 @@ import com.petrsu.attt.framework.impl.AndroidPixmap;
  */
 public class ChangeScreenAnimation {
     private static final int END_ALPHA = 149;
-    private static final int INCREASE_ALPHA = 5;
-    private static final float TIME = 0.2f;
+    private static final int INCREASE_ALPHA = 1;
+    private static final float TIME = 0.5f;
 
     private float tick = TIME / (END_ALPHA / INCREASE_ALPHA);
     private float tickTime = 0;

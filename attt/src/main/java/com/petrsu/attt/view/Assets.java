@@ -13,6 +13,7 @@ public class Assets {
     public static Pixmap menuButtons;
     public static Pixmap soundSettingsButtons;
     public static Pixmap field;
+    public static Pixmap activeField;
 
     //Sounds
     public static Sound click;

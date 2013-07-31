@@ -25,6 +25,8 @@ public class LoadingScreen extends Screen {
         Assets.menuButtons = g.newPixmap("menu_buttons.png", Graphics.PixmapFormat.ARGB8888);
         Assets.soundSettingsButtons = g.newPixmap("sound_settings_buttons.png", Graphics.PixmapFormat.ARGB8888);
         Assets.field = g.newPixmap("field.png", Graphics.PixmapFormat.ARGB8888);
+        Assets.activeField = g.newPixmap("field_active.png", Graphics.PixmapFormat.ARGB8888);
+
 
         //Sounds
         Assets.click = game.getAudio().newSound("click.ogg");

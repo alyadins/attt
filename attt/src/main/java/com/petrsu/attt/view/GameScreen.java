@@ -112,6 +112,7 @@ public class GameScreen extends Screen implements ChangeScreenAnimation.ChangeSc
         g.drawPixmap(Assets.background, 0, 0);
         //draw settings icon
         g.drawPixmap(Assets.soundSettingsButtons, pauseX, pauseY, 0, PAUSE_HEIGHT, PAUSE_WIDTH, PAUSE_HEIGHT);
+        fieldView.update(deltaTime);
         g.drawPixmap(fieldView.getPixmap(), fieldX, fieldY);
 
 
