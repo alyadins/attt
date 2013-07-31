@@ -1,6 +1,7 @@
 package com.petrsu.attt;
 
 import android.graphics.Color;
+import android.util.Log;
 
 import com.petrsu.attt.framework.Game;
 import com.petrsu.attt.framework.Graphics;
@@ -12,7 +13,7 @@ import java.util.List;
 /**
  * Created by lexer on 7/21/13.
  */
-public class MainMenuScreen extends Screen {
+public class MainMenuScreen extends Screen implements ChangeScreenAnimation.ChangeScreenAnimationEndListener{
 
     private static final int SOUND_SETTINGS_WIDTH = 136;
     private static final int SOUND_SETTINGS_HEIGHT = 136;
@@ -29,7 +30,9 @@ public class MainMenuScreen extends Screen {
     private int buttonsX;
     private int buttonsY[] = new int[3];
 
-    Background bg;
+
+    private Background bg;
+    private ChangeScreenAnimation animation;
 
     private float scaleFactor;
 
@@ -40,6 +43,8 @@ public class MainMenuScreen extends Screen {
     public MainMenuScreen(Game game) {
         super(game);
         initDimentions();
+        animation = new ChangeScreenAnimation(game.getGraphics().getWidth(), game.getGraphics().getHeight());
+        animation.setEndListener(this);
     }
 
     @Override
@@ -80,6 +85,10 @@ public class MainMenuScreen extends Screen {
         g.drawPixmap(Assets.logo, logoX, logoY);
 
         drawMenu();
+        if (animation.isStart()) {
+            animation.update(deltaTime);
+            g.drawPixmap(animation.getPixmap(), 0, 0);
+        }
     }
 
     private void processTouchUpAction(TouchEvent event) {
@@ -149,7 +158,7 @@ public class MainMenuScreen extends Screen {
 
     private void menuAction(int j) {
         if (j == 0) {
-            game.setScreen(new GameScreen(game));
+            animation.start();
         }
     }
 
@@ -186,5 +195,11 @@ public class MainMenuScreen extends Screen {
     @Override
     public void dispose() {
 
+    }
+
+    @Override
+    public void onAnimationEnd() {
+        Log.d("TEST", "this is listener");
+        game.setScreen(new GameScreen(game));
     }
 }
