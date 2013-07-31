@@ -1,9 +1,10 @@
-package com.petrsu.attt;
+package com.petrsu.attt.view;
 
 
 import com.petrsu.attt.framework.Game;
 import com.petrsu.attt.framework.Graphics;
 import com.petrsu.attt.framework.Screen;
+import com.petrsu.attt.model.Settings;
 
 /**
  * Created by lexer on 7/21/13.

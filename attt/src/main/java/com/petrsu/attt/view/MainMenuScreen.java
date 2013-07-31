@@ -1,12 +1,12 @@
-package com.petrsu.attt;
+package com.petrsu.attt.view;
 
 import android.graphics.Color;
-import android.util.Log;
 
 import com.petrsu.attt.framework.Game;
 import com.petrsu.attt.framework.Graphics;
 import com.petrsu.attt.framework.Input.TouchEvent;
 import com.petrsu.attt.framework.Screen;
+import com.petrsu.attt.model.Settings;
 
 import java.util.List;
 
@@ -108,7 +108,8 @@ public class MainMenuScreen extends Screen implements ChangeScreenAnimation.Chan
         }
         //menu buttons
         for (int j = 0; j < 3; j++) {
-            if (inBounds(event, buttonsX, buttonsY[j], (int)(BUTTONS_WIDTH * scaleFactor), (int)(BUTTONS_HEIGHT * scaleFactor)) && isClicked[j]) {
+            if (inBounds(event, buttonsX, buttonsY[j], (int)(BUTTONS_WIDTH * scaleFactor), (int)(BUTTONS_HEIGHT * scaleFactor)) && isClicked[j] &&
+                    !animation.isStart()) {
                 menuAction(j);
                 if (Settings.soundEnabled) {
                     Assets.click.play(0.5f);
@@ -199,7 +200,6 @@ public class MainMenuScreen extends Screen implements ChangeScreenAnimation.Chan
 
     @Override
     public void onAnimationEnd() {
-        Log.d("TEST", "this is listener");
         game.setScreen(new GameScreen(game));
     }
 }

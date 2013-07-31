@@ -1,4 +1,4 @@
-package com.petrsu.attt;
+package com.petrsu.attt.model;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,7 +8,7 @@ import java.util.List;
  */
 public class World {
     static final int SIZE = 3;
-    enum Player {
+    public enum Player {
         Left,
         Right
     }

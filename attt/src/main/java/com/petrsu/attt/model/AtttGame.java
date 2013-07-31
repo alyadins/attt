@@ -1,6 +1,7 @@
-package com.petrsu.attt;
+package com.petrsu.attt.model;
 
 
+import com.petrsu.attt.view.LoadingScreen;
 import com.petrsu.attt.framework.Screen;
 import com.petrsu.attt.framework.impl.AndroidGame;
 

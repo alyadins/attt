@@ -29,11 +29,15 @@ public class AndroidGraphics implements Graphics {
     float scaleFactor;
 
     public AndroidGraphics(AssetManager assets, Bitmap frameBuffer) {
+        this(assets, frameBuffer, frameBuffer.getWidth() / 720.0f);
+    }
+
+    public AndroidGraphics(AssetManager assets, Bitmap frameBuffer, float scaleFactor) {
         this.assets = assets;
         this.frameBuffer = frameBuffer;
         this.canvas = new Canvas(frameBuffer);
         this.paint = new Paint();
-        scaleFactor = frameBuffer.getWidth() / 720.0f;
+        this.scaleFactor = scaleFactor;
     }
 
     @Override
@@ -152,5 +156,50 @@ public class AndroidGraphics implements Graphics {
     @Override
     public int getHeight() {
         return frameBuffer.getHeight();
+    }
+
+    private Bitmap changeBitmapColor(Bitmap bitmap, int oldColor, int newColor) {
+        if (bitmap != null) {
+            int picw = bitmap.getWidth();
+            int pich = bitmap.getHeight();
+            int[] pix = new int[picw * pich];
+            bitmap.getPixels(pix, 0, picw, 0, 0, picw, pich);
+
+            for (int y = 0; y < pich; y++) {
+                // from left to right
+                for (int x = 0; x < picw; x++) {
+                    int index = y * picw + x;
+                    int r = (pix[index] >> 16) & 0xff;
+                    int g = (pix[index] >> 8) & 0xff;
+                    int b = pix[index] & 0xff;
+
+                    if (pix[index] == oldColor) {
+                        pix[index] = newColor;
+                    } else {
+                        break;
+                    }
+                }
+
+                // from right to left
+                for (int x = picw - 1; x >= 0; x--) {
+                    int index = y * picw + x;
+                    int r = (pix[index] >> 16) & 0xff;
+                    int g = (pix[index] >> 8) & 0xff;
+                    int b = pix[index] & 0xff;
+
+                    if (pix[index] == oldColor) {
+                        pix[index] = newColor;
+                    } else {
+                        break;
+                    }
+                }
+            }
+
+            Bitmap bm = Bitmap.createBitmap(pix, picw, pich,
+                    Bitmap.Config.ARGB_4444);
+
+            return bm;
+        }
+        return null;
     }
 }

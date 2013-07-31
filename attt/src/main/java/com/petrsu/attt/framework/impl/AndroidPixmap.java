@@ -29,7 +29,10 @@ public class AndroidPixmap implements Pixmap {
         return format;
     }
 
-
+    @Override
+    public Bitmap getBitmap() {
+        return bitmap;
+    }
 
     @Override
     public void dispose() {

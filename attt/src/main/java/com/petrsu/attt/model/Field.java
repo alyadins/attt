@@ -1,4 +1,6 @@
-package com.petrsu.attt;
+package com.petrsu.attt.model;
+
+import com.petrsu.attt.view.Cell;
 
 import java.util.ArrayList;
 import java.util.List;

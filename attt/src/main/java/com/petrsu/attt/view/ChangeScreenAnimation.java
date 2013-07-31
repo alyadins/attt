@@ -1,4 +1,4 @@
-package com.petrsu.attt;
+package com.petrsu.attt.view;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
@@ -14,8 +14,8 @@ import com.petrsu.attt.framework.impl.AndroidPixmap;
  */
 public class ChangeScreenAnimation {
     private static final int END_ALPHA = 149;
-    private static final int INCREASE_ALPHA = 10;
-    private static final float TIME = 0.5f;
+    private static final int INCREASE_ALPHA = 5;
+    private static final float TIME = 0.2f;
 
     private float tick = TIME / (END_ALPHA / INCREASE_ALPHA);
     private float tickTime = 0;
@@ -68,7 +68,7 @@ public class ChangeScreenAnimation {
         return new AndroidPixmap(bitmap, Graphics.PixmapFormat.ARGB8888);
     }
 
-    public void draw() {
+    private void draw() {
         Paint paint = new Paint();
         paint.setColor(Color.argb(currentAlpha, 0, 0, 0));
         paint.setStyle(Paint.Style.FILL);

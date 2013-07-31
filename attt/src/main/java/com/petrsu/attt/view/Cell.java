@@ -1,4 +1,6 @@
-package com.petrsu.attt;
+package com.petrsu.attt.view;
+
+import com.petrsu.attt.model.World;
 
 /**
  * Created by lexer on 7/30/13.

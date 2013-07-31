@@ -1,4 +1,4 @@
-package com.petrsu.attt;
+package com.petrsu.attt.view;
 
 import com.petrsu.attt.framework.Pixmap;
 import com.petrsu.attt.framework.Sound;

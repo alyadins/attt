@@ -1,4 +1,4 @@
-package com.petrsu.attt;
+package com.petrsu.attt.model;
 
 import com.petrsu.attt.framework.FileIO;
 

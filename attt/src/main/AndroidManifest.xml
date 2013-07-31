@@ -13,7 +13,7 @@
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
-        <activity android:name=".AtttGame"
+        <activity android:name=".model.AtttGame"
                   android:label="@string/app_name"
                   android:configChanges="keyboard|keyboardHidden|orientation"
                   android:screenOrientation="portrait"

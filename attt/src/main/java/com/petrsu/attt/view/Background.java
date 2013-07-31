@@ -1,4 +1,4 @@
-package com.petrsu.attt;
+package com.petrsu.attt.view;
 
 /**
  * Created by lexer on 7/31/13.
