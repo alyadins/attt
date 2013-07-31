@@ -1,4 +1,4 @@
-package com.badlogic.androidgames.framework;
+package com.petrsu.attt.framework;
 
 import android.graphics.Typeface;
 
@@ -21,9 +21,7 @@ public interface Graphics {
             int srcWidth, int srcHeight);
 
     public void drawPixmap(Pixmap pixmap, int x, int y);
-
-    public void drawColoredPixmap(Pixmap pixmap, int x, int y, int oldColor, int newColor);
-    public void drawColoredPixmap(Pixmap pixmap, int x, int y, int srcX, int srcY,
+    public void drawPixmap(Pixmap pixmap, int x, int y, int srcX, int srcY,
                            int srcWidth, int srcHeight, int oldColor, int newColor);
 
     public void drawText(String text, int x, int y, Typeface font, float size, int color);

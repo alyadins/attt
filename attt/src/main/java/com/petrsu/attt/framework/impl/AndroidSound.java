@@ -1,8 +1,8 @@
-package com.badlogic.androidgames.framework.impl;
+package com.petrsu.attt.framework.impl;
 
 import android.media.SoundPool;
 
-import com.badlogic.androidgames.framework.Sound;
+import com.petrsu.attt.framework.Sound;
 
 public class AndroidSound implements Sound {
     int soundId;

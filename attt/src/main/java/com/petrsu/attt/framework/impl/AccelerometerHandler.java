@@ -1,4 +1,4 @@
-package com.badlogic.androidgames.framework.impl;
+package com.petrsu.attt.framework.impl;
 
 import android.content.Context;
 import android.hardware.Sensor;

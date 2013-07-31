@@ -1,9 +1,9 @@
 package com.petrsu.attt;
 
 
-import com.badlogic.androidgames.framework.Game;
-import com.badlogic.androidgames.framework.Graphics;
-import com.badlogic.androidgames.framework.Screen;
+import com.petrsu.attt.framework.Game;
+import com.petrsu.attt.framework.Graphics;
+import com.petrsu.attt.framework.Screen;
 
 /**
  * Created by lexer on 7/21/13.
@@ -23,6 +23,7 @@ public class LoadingScreen extends Screen {
         Assets.logo = g.newPixmap("logo.png", Graphics.PixmapFormat.ARGB8888);
         Assets.menuButtons = g.newPixmap("menu_buttons.png", Graphics.PixmapFormat.ARGB8888);
         Assets.soundSettingsButtons = g.newPixmap("sound_settings_buttons.png", Graphics.PixmapFormat.ARGB8888);
+        Assets.field = g.newPixmap("field.png", Graphics.PixmapFormat.ARGB8888);
 
         //Sounds
         Assets.click = game.getAudio().newSound("click.ogg");

@@ -9,8 +9,8 @@ import java.util.List;
 public class World {
     static final int SIZE = 3;
     enum Player {
-        LEFT,
-        RIGHT
+        Left,
+        Right
     }
 
     private List<Field> fields;
@@ -29,7 +29,7 @@ public class World {
         }
 
         //init player
-        currentPlayer = Player.LEFT;
+        currentPlayer = Player.Left;
     }
 
 
@@ -46,10 +46,10 @@ public class World {
     }
 
     private void changePlayer() {
-        if (currentPlayer == Player.LEFT) {
-            currentPlayer = Player.RIGHT;
+        if (currentPlayer == Player.Left) {
+            currentPlayer = Player.Right;
         } else {
-            currentPlayer = Player.LEFT;
+            currentPlayer = Player.Left;
         }
     }
 

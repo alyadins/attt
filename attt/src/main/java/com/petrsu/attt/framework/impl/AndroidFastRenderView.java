@@ -1,4 +1,4 @@
-package com.badlogic.androidgames.framework.impl;
+package com.petrsu.attt.framework.impl;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;

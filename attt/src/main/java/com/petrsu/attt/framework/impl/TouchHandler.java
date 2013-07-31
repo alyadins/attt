@@ -1,10 +1,10 @@
-package com.badlogic.androidgames.framework.impl;
-
-import java.util.List;
+package com.petrsu.attt.framework.impl;
 
 import android.view.View.OnTouchListener;
 
-import com.badlogic.androidgames.framework.Input.TouchEvent;
+import com.petrsu.attt.framework.Input.TouchEvent;
+
+import java.util.List;
 
 public interface TouchHandler extends OnTouchListener {
     public boolean isTouchDown(int pointer);

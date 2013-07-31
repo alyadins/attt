@@ -1,4 +1,4 @@
-package com.badlogic.androidgames.framework;
+package com.petrsu.attt.framework;
 
 public abstract class Screen {
     protected final Game game;
@@ -16,4 +16,9 @@ public abstract class Screen {
     public abstract void resume();
 
     public abstract void dispose();
+
+    public boolean inBounds(Input.TouchEvent event, int x, int y, int width, int height) {
+        return event.x > x && event.x < x + width - 1 &&
+                event.y > y && event.y < y + height - 1;
+    }
 }

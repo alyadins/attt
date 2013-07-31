@@ -1,4 +1,4 @@
-package com.badlogic.androidgames.framework.impl;
+package com.petrsu.attt.framework.impl;
 
 import android.content.res.AssetManager;
 import android.graphics.Bitmap;
@@ -13,8 +13,8 @@ import android.graphics.Paint.Style;
 import android.graphics.Rect;
 import android.graphics.Typeface;
 
-import com.badlogic.androidgames.framework.Graphics;
-import com.badlogic.androidgames.framework.Pixmap;
+import com.petrsu.attt.framework.Graphics;
+import com.petrsu.attt.framework.Pixmap;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -26,12 +26,14 @@ public class AndroidGraphics implements Graphics {
     Paint paint;
     Rect srcRect = new Rect();
     Rect dstRect = new Rect();
+    float scaleFactor;
 
     public AndroidGraphics(AssetManager assets, Bitmap frameBuffer) {
         this.assets = assets;
         this.frameBuffer = frameBuffer;
         this.canvas = new Canvas(frameBuffer);
         this.paint = new Paint();
+        scaleFactor = frameBuffer.getWidth() / 720.0f;
     }
 
     @Override
@@ -105,32 +107,15 @@ public class AndroidGraphics implements Graphics {
     @Override
     public void drawPixmap(Pixmap pixmap, int x, int y, int srcX, int srcY,
             int srcWidth, int srcHeight) {
-        srcRect.left = srcX;
-        srcRect.top = srcY;
-        srcRect.right = srcX + srcWidth - 1;
-        srcRect.bottom = srcY + srcHeight - 1;
-
-        dstRect.left = x;
-        dstRect.top = y;
-        dstRect.right = x + srcWidth - 1;
-        dstRect.bottom = y + srcHeight - 1;
-
-        canvas.drawBitmap(((AndroidPixmap) pixmap).bitmap, srcRect, dstRect,
-                null);
+        drawPixmap(pixmap, x, y, srcX, srcY, srcWidth, srcHeight, -1 ,-1);
     }
-    
+
     @Override
     public void drawPixmap(Pixmap pixmap, int x, int y) {
-        canvas.drawBitmap(((AndroidPixmap)pixmap).bitmap, x, y, null);
+        drawPixmap(pixmap, x, y, 0, 0, pixmap.getWidth(), pixmap.getHeight(), -1, -1);
     }
-    public void drawColoredPixmap(Pixmap pixmap, int x, int y, int oldColor, int newColor) {
-        ColorFilter filter = new LightingColorFilter(oldColor, newColor);
-        paint.setColorFilter(filter);
-        canvas.drawBitmap(((AndroidPixmap)pixmap).bitmap, x, y, paint);
-    }
-
     @Override
-    public void drawColoredPixmap(Pixmap pixmap, int x, int y, int srcX, int srcY, int srcWidth, int srcHeight, int oldColor, int newColor) {
+    public void drawPixmap(Pixmap pixmap, int x, int y, int srcX, int srcY, int srcWidth, int srcHeight, int oldColor, int newColor) {
         srcRect.left = srcX;
         srcRect.top = srcY;
         srcRect.right = srcX + srcWidth - 1;
@@ -138,14 +123,16 @@ public class AndroidGraphics implements Graphics {
 
         dstRect.left = x;
         dstRect.top = y;
-        dstRect.right = x + srcWidth - 1;
-        dstRect.bottom = y + srcHeight - 1;
+        dstRect.right = (int) (x + srcWidth * scaleFactor - 1);
+        dstRect.bottom = (int) (y + srcHeight * scaleFactor - 1);
 
-        ColorFilter filter = new LightingColorFilter(oldColor, newColor);
-        paint.setColorFilter(filter);
-
-        canvas.drawBitmap(((AndroidPixmap) pixmap).bitmap, srcRect, dstRect,
-                paint);
+        if (oldColor == -1 || newColor == -1) {
+            canvas.drawBitmap(((AndroidPixmap) pixmap).bitmap, srcRect, dstRect, null);
+        } else {
+            ColorFilter filter = new LightingColorFilter(oldColor, newColor);
+            paint.setColorFilter(filter);
+            canvas.drawBitmap(((AndroidPixmap) pixmap).bitmap, srcRect, dstRect, paint);
+        }
     }
 
     @Override

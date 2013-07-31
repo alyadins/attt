@@ -1,25 +1,21 @@
-package com.badlogic.androidgames.framework.impl;
-
-import java.util.List;
+package com.petrsu.attt.framework.impl;
 
 import android.content.Context;
-import android.os.Build.VERSION;
 import android.view.View;
 
-import com.badlogic.androidgames.framework.Input;
+import com.petrsu.attt.framework.Input;
+
+import java.util.List;
 
 public class AndroidInput implements Input {    
     AccelerometerHandler accelHandler;
     KeyboardHandler keyHandler;
     TouchHandler touchHandler;
 
-    public AndroidInput(Context context, View view, float scaleX, float scaleY) {
+    public AndroidInput(Context context, View view) {
         accelHandler = new AccelerometerHandler(context);
-        keyHandler = new KeyboardHandler(view);               
-        if(Integer.parseInt(VERSION.SDK) < 5) 
-            touchHandler = new SingleTouchHandler(view, scaleX, scaleY);
-        else
-            touchHandler = new MultiTouchHandler(view, scaleX, scaleY);        
+        keyHandler = new KeyboardHandler(view);
+        touchHandler = new MultiTouchHandler(view);
     }
 
     @Override

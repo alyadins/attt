@@ -1,9 +1,9 @@
-package com.badlogic.androidgames.framework.impl;
+package com.petrsu.attt.framework.impl;
 
 import android.graphics.Bitmap;
 
-import com.badlogic.androidgames.framework.Graphics.PixmapFormat;
-import com.badlogic.androidgames.framework.Pixmap;
+import com.petrsu.attt.framework.Graphics.PixmapFormat;
+import com.petrsu.attt.framework.Pixmap;
 
 public class AndroidPixmap implements Pixmap {
     Bitmap bitmap;

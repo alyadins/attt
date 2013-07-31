@@ -1,4 +1,4 @@
-package com.badlogic.androidgames.framework.impl;
+package com.petrsu.attt.framework.impl;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -10,7 +10,7 @@ import java.io.OutputStream;
 import android.content.res.AssetManager;
 import android.os.Environment;
 
-import com.badlogic.androidgames.framework.FileIO;
+import com.petrsu.attt.framework.FileIO;
 
 public class AndroidFileIO implements FileIO {
     AssetManager assets;

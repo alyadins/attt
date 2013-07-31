@@ -1,23 +1,18 @@
-package com.badlogic.androidgames.framework.impl;
+package com.petrsu.attt.framework.impl;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.res.Configuration;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
 import android.os.Bundle;
-import android.os.PowerManager;
-import android.os.PowerManager.WakeLock;
-import android.view.Window;
-import android.view.WindowManager;
+import android.util.DisplayMetrics;
 
-import com.badlogic.androidgames.framework.Audio;
-import com.badlogic.androidgames.framework.FileIO;
-import com.badlogic.androidgames.framework.Font;
-import com.badlogic.androidgames.framework.Game;
-import com.badlogic.androidgames.framework.Graphics;
-import com.badlogic.androidgames.framework.Input;
-import com.badlogic.androidgames.framework.Screen;
+import com.petrsu.attt.framework.Audio;
+import com.petrsu.attt.framework.FileIO;
+import com.petrsu.attt.framework.Game;
+import com.petrsu.attt.framework.Graphics;
+import com.petrsu.attt.framework.Input;
+import com.petrsu.attt.framework.Screen;
 
 public abstract class AndroidGame extends Activity implements Game {
     AndroidFastRenderView renderView;
@@ -26,44 +21,32 @@ public abstract class AndroidGame extends Activity implements Game {
     Input input;
     FileIO fileIO;
     Screen screen;
-    Font font;
-    WakeLock wakeLock;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);
-
+        DisplayMetrics metrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(metrics);
         boolean isLandscape = getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
-        int frameBufferWidth = isLandscape ? 1280 : 720;
-        int frameBufferHeight = isLandscape ? 720 : 1280;
+        int frameBufferWidth = isLandscape ? metrics.heightPixels : metrics.widthPixels;
+        int frameBufferHeight = isLandscape ? metrics.widthPixels : metrics.heightPixels;
         Bitmap frameBuffer = Bitmap.createBitmap(frameBufferWidth,
                 frameBufferHeight, Config.RGB_565);
-        
-        float scaleX = (float) frameBufferWidth
-                / getWindowManager().getDefaultDisplay().getWidth();
-        float scaleY = (float) frameBufferHeight
-                / getWindowManager().getDefaultDisplay().getHeight();
+
         renderView = new AndroidFastRenderView(this, frameBuffer);
         graphics = new AndroidGraphics(getAssets(), frameBuffer);
         fileIO = new AndroidFileIO(getAssets());
         audio = new AndroidAudio(this);
-        input = new AndroidInput(this, renderView, scaleX, scaleY);
+        input = new AndroidInput(this, renderView);
         screen = getStartScreen();
-        font = new AndroidFont(getAssets());
         setContentView(renderView);
-        
-        PowerManager powerManager = (PowerManager) getSystemService(Context.POWER_SERVICE);
-        wakeLock = powerManager.newWakeLock(PowerManager.FULL_WAKE_LOCK, "GLGame");
+
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        wakeLock.acquire();
         screen.resume();
         renderView.resume();
     }
@@ -71,7 +54,6 @@ public abstract class AndroidGame extends Activity implements Game {
     @Override
     public void onPause() {
         super.onPause();
-        wakeLock.release();
         renderView.pause();
         screen.pause();
 
@@ -113,10 +95,5 @@ public abstract class AndroidGame extends Activity implements Game {
     
     public Screen getCurrentScreen() {
         return screen;
-    }
-
-    @Override
-    public Font getFont() {
-        return font;
     }
 }

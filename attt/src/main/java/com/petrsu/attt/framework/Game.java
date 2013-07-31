@@ -1,4 +1,5 @@
-package com.badlogic.androidgames.framework;
+package com.petrsu.attt.framework;
+
 
 public interface Game {
     public Input getInput();
@@ -14,6 +15,4 @@ public interface Game {
     public Screen getCurrentScreen();
 
     public Screen getStartScreen();
-
-    public Font getFont();
 }

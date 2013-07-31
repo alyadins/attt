@@ -1,6 +1,6 @@
 package com.petrsu.attt;
 
-import com.badlogic.androidgames.framework.FileIO;
+import com.petrsu.attt.framework.FileIO;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;

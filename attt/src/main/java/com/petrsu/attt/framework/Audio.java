@@ -1,4 +1,4 @@
-package com.badlogic.androidgames.framework;
+package com.petrsu.attt.framework;
 
 public interface Audio {
     public Music newMusic(String filename);

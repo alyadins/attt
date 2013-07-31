@@ -1,12 +1,12 @@
-package com.badlogic.androidgames.framework.impl;
-
-import java.io.IOException;
+package com.petrsu.attt.framework.impl;
 
 import android.content.res.AssetFileDescriptor;
 import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnCompletionListener;
 
-import com.badlogic.androidgames.framework.Music;
+import com.petrsu.attt.framework.Music;
+
+import java.io.IOException;
 
 public class AndroidMusic implements Music, OnCompletionListener {
     MediaPlayer mediaPlayer;
